@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# 数据集数据
+data/
+datasets/
+*.csv
+*.tsv
+*.json
+*.parquet
+*.h5
+*.hdf5
+
+# 模型数据
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.pkl
+*.pickle
+models/
+checkpoints/
+weights/
+saved_models/
+model_weights/
+
+# 日志文件
+*.log
+logs/
+tensorboard/
+runs/
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 操作系统文件
+Thumbs.db
+.DS_Store
