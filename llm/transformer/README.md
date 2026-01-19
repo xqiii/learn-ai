@@ -124,6 +124,10 @@ $\alpha_i = \frac{\exp(s_i)}{\sum_j \exp(s_j)} \quad \Rightarrow \quad \sum_i \a
 1. 对分数高的 key 指数级放大
 2. 对分数低的 key 指数级压制（接近0）
 
+为什么要除以根号d:
+1. 防止softmax饱和导致梯度消失
+2. 提升训练稳定性和收敛速度
+
 
 接下来根据 α′ 去抽取出序列里面重要的信息。把向量 a1 到 a4 乘上 Wv 得到新的向量：v1、v2、v3 和 v4，接下来把每一个向量都去
 乘上注意力的分数 α′，再把它们加起来。如果a1和a2关联性很强，在做加权后，得到的b1会比较接近v2，所以谁的注意力分数最大，谁的v就会主导结果。
@@ -131,3 +135,4 @@ $\alpha_i = \frac{\exp(s_i)}{\sum_j \exp(s_j)} \quad \Rightarrow \quad \sum_i \a
 ![](../../image/llm/transformer/attention_score3.png)
 
 ### 从矩阵的角度理解
+![](../../image/llm/transformer/attention_matrix.png)
