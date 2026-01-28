@@ -73,43 +73,75 @@ $lim_{n \to \infty}f(x_n) \neq lim_{n \to \infty}f(y_n)$故得证
 
 设函数$f(x)$在$x_0$点的某一邻域内有定义，若$\lim_{x \to x_0}f(x) = f(x_0)$就称函数在$x_0$处连续。
 
-## 导数
+## 微分导数
 
+### 微分
 
+设函数$y = f(x)$在某区间内有定义，$x_0$ 及$x_0+\Delta x$在此区间内，如果函数值增量：
+
+$$\Delta y = f(x_0+\Delta x) - f(x_0)$$
+
+可表示为：
+
+$$\Delta y = A \Delta x + o(\Delta x)$$ 
+
+其中 $A$ 是不依赖与 $\Delta x$ 的常数，那么称函数 $y = f(x)$ 在 $x_0$ 处是可微的，而$A \Delta x$叫做函数$y = f(x)$ 在 $x_0$ 点相应于自变量增量 $\Delta x$的微分，记作$dy$，即：
+
+$dy = A\Delta x$
+
+通常令 $dx = \Delta x$，所以微分又表示为 $dy = Adx$。
+
+其实是在说，在$x_0$附近，微分和曲线非常接近：
+
+若 曲线 - 直线 = $o(\Delta x)  \implies$ 该直线就是曲线的微分。
+
+$\Delta y = f(x_0 + \Delta x) - f(x_0)$，其实是曲线的表达式。
+
+$dy = A \Delta x$，其实是直线的表达式，也就是$x_0$点微分的表达式。
+
+$o(\Delta x) = \Delta y - A \Delta x $，该式是曲线和直线的相差。
+
+### 导数
+
+由微分定义可知，如果我们需要求$A$，其中$o(\Delta x)$是$x \to x_0$ 时 $\Delta x$ 的高阶无穷小，所以可以推出：
+
+$$\Delta y = A \Delta x + o(\Delta x) \implies \frac{\Delta y}{\Delta x} = A + \frac{o(\Delta x)}{\Delta x} 
+\implies $$
+
+$$\lim_{x \to x_0} \frac{\Delta y}{\Delta x} = \lim_{x \to x_0} (A + \frac{o(\Delta x)}{\Delta x}) \implies$$ 
+
+$$\lim_{x \to x_0} \frac{\Delta y}{\Delta x} = \lim_{x \to x_0} A + \lim_{x \to x_0} \frac{o(\Delta x)}{\Delta x} = A$$ 
+
+因为$\Delta x = x - x_0$，所以$x \to x_0$ 就是$\Delta x \to 0$；又因为$\Delta y = f(x_0 + \Delta x) - f(x_0)$ ，所以：
+
+$$\lim_{x \to x_0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} = A$$
+
+A的算式在数学中被称作导数，定义如下: 
+设函数$y = f(x)$在$x_0$点的某个邻域内有定义，当自变量$x$ 在 $x_0$处取得增量$\Delta y = f(x_0+\Delta x) - f(x_0)$。如果$\Delta y$ 与 $\Delta x$之比当$\Delta x \to 0$时的极限存在，那么称函数在$x_0$处可导，并称这个极限为函数$y = f(x)$在$x_0$处的导数，记为$f\prime (x_0)$，即：
+$$f\prime (x_0) = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$$
+
+可微即可导，可导即可微。
 
 ## 偏导数
+设n元函数 $f(x_1,x_2,...x_n)$，其中在点 $(a_1,a_2,...,a_n)$ 处关于变量$x_i$的偏导数定义为：
+$$\frac{\partial f}{\partial x} = f_x = \lim_{h \to 0} \frac{f(x+h,y)-f(x,y)}{h}$$
+关键点：计算 $\frac{\partial f}{\partial x}$
+时，将其他所有变量（如 $y,z$ ）视为常数，仅让 $x$ 发生微小变化，观察函数值的响应。
 
+## 方向导数与梯度
+设$f : \mathbb{R^n} \to \mathbb{R}$ 在点 $x_0 = (x_1,...,x_n)$ 处可微，$u = (u_1,...,u_n)$ 是单位向量 $(|u| = 1)$ ，则 $f$ 在 沿 方向 $u$ 的方向导数是：
+$$ D_uf(x_0) = \lim_{h \to 0} \frac{f(x_0 + hu) - f(x_0)}{h}$$
+计算公式：
+$$D_uf = \nabla f \cdot u = \frac{\partial f}{\partial x_1}u_1 + \frac{\partial f}{\partial x_2}u_2 + \ldots \frac{\partial f}{\partial x_n}u_n$$
+其中$\nabla f = (\frac{\partial f}{\partial x_1}, \ldots, \frac{\partial f}{\partial x_n})$ 称为梯度（Gradient）。 
 
-
-## 方向导数
-
-
-
-## 梯度
-
-
-
-## 微积分
-
-
-
-## 定积分
-
-
-
-## 牛顿-莱布尼茨
-
-
+**梯度方向是函数增长最快的方向**，其模长就是最大增长率。
 
 ## 泰勒公式
 
-
-
-
+## 牛顿-莱布尼茨
 
 ## 阶数与阶乘
-
-
 
 ## 拉格朗日乘子
 
