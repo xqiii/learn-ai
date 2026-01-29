@@ -68,7 +68,72 @@ $$f_X(x) = P(\omega \in \Omega : X(\omega) = x)$$
 
 ### 连续随机变量
 
+## 定义
+连续型随机变量是可以在某一区间内取任意实数值的随机现象的量。如果一个随机变量的取值不可数（无法一一列举），且可以取某个区间内的所有实数值，那么它就是连续型的。
+
+### 概率密度函数和概率分布函数
+设 $X$ 是一个随机变量. 如果
+存在一个实值函数 $f_X$ 满足：
+1. $f_X$ 是一个分段连续函数
+2. $f_X(x) \ge 0 $
+3. $\int_{-\infty}^{+\infty}f_X(t)dt = 1$
+
+那么 $X$ 是一个连续型随机变量, $f_X$ 是 $X$ 的概率密度函数. 
+
+$X$ 的累积分布函数$F_X(x)$ 就是 X 不大于 $x$ 的概率：
+$$F_X(x) = P(X \le x) = \int_{-\infty}^{x}f_X(t)dt$$
+
+### 期望
+
+#### 期望值
+期望值, 矩：设 $X$ 是定义在 $\mathbb{R}$ 上的随机变量, 它的概率密度函数是 $f_X$. 函数$g(X)$ 的期望值是
+$$\mathbb{E}[g(X)]=\left\{\begin{array}{ll}
+\int_{-\infty}^{\infty} g(x) \cdot f_{X}(x) \mathrm{d} x & \text { 若 } X \text { 是连续的 } \\
+\sum_{n} g\left(x_{n}\right) \cdot f_{X}\left(x_{n}\right) & \text { 若 } X \text { 是离散的. }
+\end{array}\right.$$
+
+最重要的情形是 $g(x) = x^r$
+。我们把 $E[Xr]$ 称为 $X$ 的 $r$ 阶矩, 把 $E[(X −E[X])^r]$ 称为 $X$ 的 $r$ 阶中心矩。
+
+#### 均值
+$X$ 的均值 (即平均值或期望值) 是一阶矩. 我们把它表示为 $E[X]$ 或 $µ_X$
+(当随机变量很明确时, 通常不给出下标 $X$, 而只写 $µ$)。具体地说：
+$$\mu =\left\{\begin{array}{ll}
+\int_{-\infty}^{\infty} x \cdot f_{X}(x) \mathrm{d} x & \text { 若 } X \text { 是连续的 } \\
+\sum_{n} x_n  \cdot f_{X}(x_{n}) & \text { 若 } X \text { 是离散的 }
+\end{array}\right.$$
+
+#### 方差
+方差 (记作 $\sigma_X^2$ 或 $Var(X)$) 是二阶中心距, 也可以说是 $g(X) =
+(X − µX)^2$ 的期望值。同样, 当随机变量很明确时, 通常不给出下标 $X$,而只写 $\sigma^2$。 把它完整地写出来, 就是：
+$$\sigma_X^2=\left\{\begin{array}{ll}
+\int_{-\infty}^{\infty} (x-\mu x)^2 f_X(x) \mathrm{d} x & \text { 若 } X \text { 是连续的 } \\
+\sum_{n} (x-\mu x)^2 f_{X}\left(x_{n}\right) & \text { 若 } X \text { 是离散的 }
+\end{array}\right.
+$$
+因为 $\mu_X = \mathbb{E}[X]$，所以在一系列代数运算后，有：
+$$\sigma^2 = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}[X]^2$$
+标准差是方差的平方根，即：$\sigma = \sqrt{\sigma_X^2}$
+
+### 协方差
+对于任意两个 (离散型或连续型的) 随机变量 $X$ 和 $Y$ , 如果它们的均值分别是
+$\mu X$ 和 $\mu Y$ , 那么 $X$ 和 $Y$ 的协方差可以写成：
+$$Cov(X,Y) = E[XY] - \mu_X \mu_Y$$
+
 ### 概率分布
 
+#### 伯努利分布
+
+#### 二项分布
+
+#### 松柏分布
+
+#### 正态分布
+
+### 极限定理
+
+#### 大数定理
+
+#### 中心极限定理
 
 ## 统计
