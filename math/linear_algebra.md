@@ -208,6 +208,8 @@ $$
 $$
 E_p \cdot E_{p-1} \cdots E_2 \cdot E_1 = mef(A)
 $$
+左乘矩阵 $E$ 是在对 $A$ 的行做操作。
+右乘矩阵 $E$ 是在对 $A$ 的列做操作。
 
 #### 特殊矩阵
 
@@ -277,6 +279,111 @@ $$
 $$
 
 ### 运算
+
+#### 加法
+两个同维度的矩阵相加，对应元素相加：
+$$
+A + B = [a_{ij} + b_{ij}]_{m \times n}
+$$
+
+满足：
+
+交换律：$A + B = B + A$
+
+结合律：$(A + B) + C = A + (B + C)$
+
+#### 数乘
+数 $k$ 与矩阵 $A$ 的乘积：
+$$
+kA = Ak = [ka_{i,j}]_{m \times n}
+$$
+
+#### 乘法
+$A$、$B$ 相乘满足如下条件：
+
+- $m \times n$ 的矩阵只能和 $n \times p$ 的矩阵相乘。
+- 相乘后大小为 $m \times p$。
+
+$A_{m \times n} \cdot B_{n \times p} = C_{m \times p}$
+
+计算方法：
+
+$C = AB \quad \text{其中} \quad c_{ij} = \sum_{k=1}^{n} a_{ik} \cdot b_{kj}$
+
+行视角：
+
+$$
+xA = \begin{bmatrix} x_1^T \\ x_2^T \\ \vdots \end{bmatrix} A = \begin{bmatrix} x_1^T A \\ x_2^T A \\ \vdots \end{bmatrix}
+$$
+
+$$
+xA = \begin{pmatrix}
+  x_1 & x_2 & \cdots & x_n
+\end{pmatrix}
+\begin{pmatrix}  
+  a_{11} & \cdots & a_{1n} \\  
+  \vdots & \ddots & \vdots \\  
+  a_{m1} & \cdots & a_{mn}  
+\end{pmatrix} 
+= x_1(a_{11}, a_{12}, \cdots , a_{1n}) + \cdots + x_m(a_{m1}, a_{m2}, \cdots , a_{mn})
+$$
+
+列视角：
+$$
+Ax = A \cdot [x_1, x_2, ..., x_p] = [Ax_1, Ax_2, ..., Ax_p]
+$$
+
+$$
+Ax = \begin{pmatrix}  
+  a_{11} & \cdots & a_{1n} \\  
+  \vdots & \ddots & \vdots \\  
+  a_{m1} & \cdots & a_{mn}  
+\end{pmatrix} 
+\begin{pmatrix}
+  x_1 \\
+  x_2 \\
+  \vdots \\
+  x_n
+\end{pmatrix}
+
+= x_1\begin{pmatrix}
+  a_{11} \\
+  a_{21} \\
+  \vdots \\
+  a_{m1}
+\end{pmatrix} 
++ \cdots + x_n\begin{pmatrix}
+  a_{1n} \\
+  a_{2n} \\
+  \vdots \\
+  a_{mn}
+\end{pmatrix}
+$$
+
+点积视角：
+$$
+AB = \sum_{k=1}^{n} (\text{A的第k列}) \cdot (\text{B的第k行})
+$$
+$$
+c_{ij} = a_{i*} \cdot b_{*j} = a_{i1}b_{1j} + \cdots + a_{is}b_{sj} = \sum_{k=1}^s a_{ik}b_{kj}  (i = 1, \cdots, m; j = 1, \cdots, n)
+$$
+
+性质：
+
+交换律：不一定不满足
+
+数乘交换律：$\lambda (AB) = (\lambda A)B = A(\lambda B)$
+
+结合律：$(AB)C = A(BC)$
+
+分配律：$A(B+C) = AB + AC$
+
+幂运算：
+设 $A$ 是方阵，定义：
+$A^1 = A, A^2 = A^1A^1, \cdots, A^{k+1} = A^kA^1$
+
+转置：
+把矩阵 $A$ 的行换成同序的列，该操作称为转置。
 
 ## 矩阵的秩
 
