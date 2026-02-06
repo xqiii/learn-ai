@@ -628,6 +628,114 @@ $$
 
 ## 行列式
 
+行列式是方阵的一个属性。
+
+### 几何意义
+
+$$
+det\begin{vmatrix}
+ a & b\\
+ c & d
+\end{vmatrix} = ad - bc
+$$
+
+行列式可以代表向量在空间形式的有向体积。对于某方阵 $A$，它的行列式是矩阵函数 $Ax = y$ 的伸缩比例。
+
+### 子式和余子式
+
+### 性质
+
+对于 $n$ 阶方阵 $A = (a_{ij})$，有：$|A| = |A^T|$
+
+对于方阵 $A$，有 $|A| \neq 0$ $\Longleftrightarrow$ $A$ 满秩 $\Longleftrightarrow$ $A$ 可逆
+
+### 运算
+
+数乘：行列式乘以 $k$ 倍，是某一行（列）乘以 $k$。
+$$
+\begin{vmatrix}
+ ka & kb\\
+ c & d
+\end{vmatrix} = 
+k\begin{vmatrix}
+ a & b\\
+ c & d
+\end{vmatrix}
+$$
+
+行（列）互换：行列式的行（列）互换后，行列式正负号发生改变。
+
+$$
+\begin{vmatrix}
+ a & b\\
+ c & d
+\end{vmatrix} = 
+-\begin{vmatrix}
+ c & d\\
+ a & b
+\end{vmatrix}
+$$
+
+倍加：将一行（列）的 $k$ 倍加进另一行（列）里，行列式的值不变。
+
+加法：某一行（列）每个元素是两数之和，则此行列式可以拆分为两个相加的行列式。
+
+乘法：$|AB| = |A||B|$
+
+从乘法证明矩阵可逆的条件：
+$det(A\cdot A^{-1}) = det(A) \cdot det(A^{-1}) = det(I) \Longrightarrow det(A^{-1}) = \frac{1}{det(A)}$ 
+
+如果行列式的一行是另一行的 $k$ 倍，则行列式的值为 $0$。（可以看作向量共线）
+$$
+\begin{vmatrix}
+ ka & kb\\
+ a & b
+\end{vmatrix} = 
+k\begin{vmatrix}
+ a & b\\
+ a & b
+\end{vmatrix} = 0
+$$
+行列式为 $0$：
+ - 一行为 $0$
+ - 两行相同
+ - 一行是另外一行的 $k$ 倍
+ - 一行是其他的线性组合
+
+对角行列式：
+
+$$
+\begin{vmatrix}  
+  d_1 & 0 & \cdots & 0 \\  
+  0 & d_2 & \cdots & 0 \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  0 & 0 & \cdots & d_n  
+\end{vmatrix} = 
+d_1d_2\cdots d_n
+\begin{vmatrix}  
+  1 & 0 & \cdots & 0 \\  
+  0 & 1 & \cdots & 0 \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  0 & 0 & \cdots & 1  
+\end{vmatrix} =
+d_1d_2\cdots d_n
+$$
+
+
 ## 相似矩阵
+
+### 基变换公式
+
+已知 两个基 $m_1,m_2,\cdots,m_s$ 和 $n_1,n_2,\cdots,n_s$，当且仅当它们是同一个向量空间时，才存在唯一的矩阵 $P$，使得下式成立：
+
+$$
+(m_1,m_2,\cdots,m_s) = (n_1,n_2,\cdots,n_s)P
+$$
+
+该矩阵 $P$ 称为由基 $m_1,m_2,\cdots,m_s$ 到基 $n_1,n_2,\cdots,n_s$ 的过渡矩阵，上式称为坐标转换公式。
+
+### 坐标变换
+
+
 
 ## 特征向量
