@@ -788,3 +788,110 @@ $A^{-1} \sim B^{-1}$
 $A \sim B, B \sim C, A \sim C$
 
 ## 特征向量
+
+### 定义
+
+设 $A$ 是 $n$ 阶方阵，$x$ 为非零向量，若存在 $\lambda$ 使得下式成立：
+
+$$
+Ax = \lambda x
+$$
+
+那么 $\lambda$ 称为 $A$ 的特征值，非零向量 $x$ 称为 $A$ 的对应 $\lambda$ 的特征向量。
+
+### 特征方程和特征空间
+
+假设：
+$$
+A = \begin{pmatrix}  
+  a_{11} & \cdots & a_{1n} \\  
+  \vdots & \ddots & \vdots \\  
+  a_{m1} & \cdots & a_{nn}  
+\end{pmatrix} 
+$$
+
+那么 $|A-\lambda I| = 0$ 可以写作：
+
+$$
+|A-\lambda I| = 
+\begin{vmatrix}  
+  a_{11} - \lambda & \cdots & a_{1n} \\  
+  \vdots & \ddots & \vdots \\  
+  a_{n1} & \cdots & a_{nn} - \lambda  
+\end{vmatrix} 
+$$
+
+其中 $|A-\lambda I|$ 展开后就是关于特征值 $\lambda$ 的多项式，称为特征多项式。进而 $|A-\lambda I| = 0$ 被称为特征方程。
+
+已知 $\lambda_1,\lambda_2,\cdots,\lambda_m$ 是 $n$ 阶方阵的特征向量，则向量组 $\{ v_1,v_2,\cdots,v_m \}$ 线性无关。
+
+### 对角化
+
+如果 $n$ 阶方阵 $A$ 有 $n$ 个线性无关的特征向量 $p_1,p_2,\cdots,p_n$ ，那么构造矩阵 $P = (p_1,p_2,\cdots,p_n)$ ，使得：
+
+$$
+A = P \Lambda P^{-1}
+$$
+
+其中 $\Lambda $ 为如下对角矩阵：
+
+$$
+\begin{pmatrix}  
+  \lambda_1 & & \\  
+   & \ddots &  \\  
+   &  & \lambda_n
+\end{pmatrix} 
+$$
+
+其中 $\lambda_1,\lambda_2,\cdots,\lambda_n$ 为特征向量 $ v_1,v_2,\cdots,v_n $ 对应的特征值，该过程称为对角化。
+
+### 正交矩阵
+
+#### 正交基
+
+已知 $p_1,p_2,\cdots,p_r$ 是向量空间 $V$ 的一个基，如果两两正交，即满足：
+
+$$
+p_i \cdot p_j = 0, i \neq j
+$$
+
+那么称为正交基，如果长度都为1，就称为标准正交基。
+
+#### 正交矩阵
+
+假设 $p_1,p_2,\cdots,p_r$ 是向量空间 $\mathbb{R}^n$ 的一个标准正交基，那么由它们构造的 $n$ 阶方阵 $P$ 也称为正交矩阵。
+
+$$
+P = (p_1,p_2,\cdots,p_n)
+$$
+
+该方阵必然满足：
+
+$$
+P^TP = P^{-1}P = I
+$$
+
+$P^T$ 就是 $P$ 的逆矩阵。
+
+
+#### 施密特正交化
+
+给定线性无关组 $\{\mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_n\}$，构造正交组 $\{\mathbf{u}_1, \mathbf{u}_2, ..., \mathbf{u}_n\}$ ：
+
+$$
+\begin{aligned}
+\mathbf{u}_1 &= \mathbf{v}_1 \\
+\mathbf{u}_2 &= \mathbf{v}_2 - \frac{\langle \mathbf{v}_2, \mathbf{u}_1 \rangle}{\langle \mathbf{u}_1, \mathbf{u}_1 \rangle} \mathbf{u}_1 \\
+\mathbf{u}_3 &= \mathbf{v}_3 - \frac{\langle \mathbf{v}_3, \mathbf{u}_1 \rangle}{\langle \mathbf{u}_1, \mathbf{u}_1 \rangle} \mathbf{u}_1 - \frac{\langle \mathbf{v}_3, \mathbf{u}_2 \rangle}{\langle \mathbf{u}_2, \mathbf{u}_2 \rangle} \mathbf{u}_2 \\
+&\vdots \\
+\mathbf{u}_k &= \mathbf{v}_k - \sum_{j=1}^{k-1} \frac{\langle \mathbf{v}_k, \mathbf{u}_j \rangle}{\langle \mathbf{u}_j, \mathbf{u}_j \rangle} \mathbf{u}_j
+\end{aligned}
+$$
+
+#### 正交对角化
+
+对称矩阵所有不同的特征值对应的特征向量互相垂直。实对称矩阵 $A = A^T \in \mathbb{R}^{n \times n}$ 必然可以正交对角化。
+
+### 对称矩阵
+
+若 $A$ 是 $m \times n $ 的矩阵，则 $A^TA$ 是 $n \times n$ 的方阵且对称。所以有 $$
