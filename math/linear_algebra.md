@@ -892,6 +892,44 @@ $$
 
 对称矩阵所有不同的特征值对应的特征向量互相垂直。实对称矩阵 $A = A^T \in \mathbb{R}^{n \times n}$ 必然可以正交对角化。
 
+$$
+A = Q\Lambda Q^T
+$$
+
 ### 对称矩阵
 
-若 $A$ 是 $m \times n $ 的矩阵，则 $A^TA$ 是 $n \times n$ 的方阵且对称。所以有 $$
+若 $A$ 是 $m \times n $ 的矩阵，则 $A^TA$ 是 $n \times n$ 的方阵且对称。所以：
+
+- $A^TA 可以被正交对角化$
+
+- 拥有 $n$ 个实数特征值
+
+- $n$ 个相互垂直的特征向量
+
+#### 奇异值
+对矩阵 $A \in \mathbb{R}^{m \times n}$，其奇异值是矩阵 $A^TA$ 或 $AA^T$ 特征值的非负平方根：
+
+$$
+\sigma_i = \sqrt{\lambda_i(A^TA)} = \sqrt{\lambda_i(AA^T)}
+$$
+
+其中 $\lambda_i$ 表示第 $i$ 大的特征值。奇异值也可以代表向量 $Av_i$ 的长度（$\left \| A \vec{v_i} \right \| $）。
+
+如果 $A$ 有 $r$ 个不为零的奇异值，则 $\{ A\vec{v_1}, A\vec{v_2}, \cdots, A\vec{v_r} \}$ 是 $A$ 的列空间的一组正交基，$\lambda_i \neq 0$。所以有 $rank(A) = r$。$\{ \frac{A\vec{v_1}}{\sigma_1}, \frac{A\vec{v_2}}{\sigma_2}, \cdots, \frac{A\vec{v_r}}{\sigma_r} \}$ 是标准正交基。 
+
+
+
+#### SVD分解
+
+如果有一个 $m \times n$ 的矩阵 $A$，它可以被分解成：
+
+$$
+A = U \Sigma V^T
+$$
+
+
+| 矩阵       | 角色    | 几何操作       | 性质                                           |
+| :------- | :---- | :--------- | :------------------------------------------- |
+| $V^T$    | 右奇异矩阵 | **旋转**输入空间 | 正交矩阵，$V^TV = I$                              |
+| $\Sigma$ | 奇异值矩阵 | **伸缩**各坐标轴 | 对角阵，$\sigma_1 \geq \sigma_2 \geq ... \geq 0$ |
+| $U$      | 左奇异矩阵 | **旋转**输出空间 | 正交矩阵，$U^TU = I$ |
