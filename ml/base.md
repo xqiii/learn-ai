@@ -1,0 +1,101 @@
+# 机器学习基础
+
+## 基本术语
+
+算法：从数据学得“模型”的具体方法，线性回归、对数几率
+决策树等。
+
+模型：算法产出的结果，通常是具体的函数或者可抽象看作为函数。
+
+样本：关于一个事件或对象的描述。一般数据是向量的形式，向量的各个维度称为“特征”或者“属性”
+
+样本空间：也称为“输入空间”或“属性空间”。表示样本的特征向量所在的空间为样本空间。
+
+标记空间：标记所在空间称为“标记空间”或“输出空间”。
+
+学习任务：标记取值为离散，称此类任务为“分类”。标记取值为连续时，称此类任务为“回归”。
+
+监督学习：模型训练阶段有用到标记信息。（线性模型等）
+
+无监督学习：模型训练阶段没用到标记信息。（聚类等）
+
+数据集：数据集通常用集合来表示，令集合 $D = \{x_1,x_2,\cdots,x_m \}$ 表示包含 $m$ 个样本的数据集，一般同一份数据集的每个样本都含有相同个数的特征，假设此数据集中的每个样本都含有 $d$ 个特征，则第 $i$ 个样本的数据表示为 $d$ 维向量：$x_i = \{ x_{i1}; \cdots; x_{id} \}$，其中 $x_{ij}$ 表示样本 $x_i$ 在第 $j$ 个属性上的取值。
+
+泛化：对未知物判断的准确与否才是衡量一个模型的关键，我们称此为“泛化”能力。
+
+
+
+## 数学
+
+### 极大似然估计（MLE）
+
+使得观测样本出现概率最大的分布
+
+设样本 $X_1, ..., X_n$ 独立同分布，概率密度（或质量）函数为 $f(x; \theta)$ ，其中 $\theta$ 是待估参数。
+
+似然函数：
+
+$$
+L(\theta) = L(\theta; x_1, ..., x_n) = \prod_{i=1}^{n} f(x_i; \theta)
+$$
+
+对数似然：
+
+方便求导，单调递增
+
+$$
+\ell(\theta) = \ln L(\theta) = \sum_{i=1}^{n} \ln f(x_i; \theta)
+$$
+
+### 凸集
+
+集合 $C \subseteq \mathbb{R}^n$ 是凸集，当且仅当：
+
+$$
+\forall x, y \in C, \quad \forall \theta \in [0, 1], \quad \theta x + (1-\theta)y \in C
+$$
+
+$\theta x + (1-\theta)y$ 就是 $x$ 和 $y$  之间的凸组合（线段上的任意点）。
+
+| 凸集                             | 非凸集      |
+| ------------------------------ | -------- |
+| 整个空间 $\mathbb{R}^n$            | 两个分离的圆盘  |
+| 半空间 $\{x \mid a^Tx \leq b\}$   | 圆环（中间有洞） |
+| 球体 $\{x \mid \|x\|_2 \leq r\}$ | 月牙形区域    |
+| 单纯形（概率单纯形）                     | 任意非连通集合  |
+
+### 凸函数
+
+函数 $f: \mathbb{R}^n \to \mathbb{R}$ 是凸函数，当且仅当（最优化）：
+
+$$
+\forall x, y \in \text{dom}(f), \quad \forall \theta \in [0, 1]:
+$$
+
+$$
+f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)
+$$
+
+### 梯度
+
+对于函数 $f: \mathbb{R}^n \to \mathbb{R}$ （输入向量，输出标量），其梯度为：
+
+$$
+\nabla f(x) = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \frac{\partial f}{\partial x_2} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix}
+$$
+
+所有偏导数组成的列向量。
+
+### Hessian 矩阵
+
+对于 $f: \mathbb{R}^n \to \mathbb{R}$，Hessian 矩阵 $\mathbf{H} \in \mathbb{R}^{n \times n}$：
+
+$$
+\mathbf{H} = \nabla^2 f(x) = \begin{bmatrix} \frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\[6pt]
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\[6pt]
+\vdots & \vdots & \ddots & \vdots \\[6pt]
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}
+$$
+
+所有二阶偏导数组成的对称矩阵（若 $f$ 二阶连续可微，则$\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{\partial^2 f}{\partial x_j \partial x_i}$）
