@@ -513,3 +513,79 @@ $$
 $$
 \ell(\beta) = \sum_{i=1}^m(-y_i\beta^T\hat{x}+ln(1 + e^{\beta^T\hat{x}}))
 $$
+
+## 二分类线性判别分析
+
+从几何角度出发，让全体训练样本经过投影后：
+- 异类样本的中心尽可能远
+- 同类样本的方差尽可能小
+
+经过投影后，异类样本的中心尽可能远（非严格投影）：
+
+$$
+max \left \| w^T\mu_0 - w^T\mu_1 \right \|_2^2 
+$$
+
+$$
+max \left \| \left | w \right | \cdot \left |  \mu_0 \right | \cdot cos\theta_0 - \left | w \right | \cdot \left |  \mu_1 \right | \cdot cos\theta_1 \right \|_2^2
+$$
+
+经过投影后，同类样本的方差尽可能小：
+
+$$
+min w^T \Sigma w
+$$
+
+$\Sigma_0$ 为协方差矩阵
+$$
+\Sigma_0 = \begin{bmatrix}
+\sigma_{11}^2 & \sigma_{12} & \cdots & \sigma_{1d} \\
+\sigma_{21} & \sigma_{22}^2 & \cdots & \sigma_{2d} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{d1} & \sigma_{d2} & \cdots & \sigma_{dd}^2
+\end{bmatrix}
+$$
+
+$$
+(x_i - \mu)(x_i - \mu)^T = 
+\begin{bmatrix}
+(x_i^{(1)}-\mu^{(1)})^2 & (x_i^{(1)}-\mu^{(1)})(x_i^{(2)}-\mu^{(2)}) & \cdots \\
+(x_i^{(2)}-\mu^{(2)})(x_i^{(1)}-\mu^{(1)}) & (x_i^{(2)}-\mu^{(2)})^2 & \cdots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+$$
+
+$$
+\begin{aligned}
+\text{Var}_{\text{proj}} &= \frac{1}{m_0} \sum_{i=1}^{m_0} w^T(x_i - \mu_0)(x_i - \mu_0)^T w \\
+&= w^T \left( \frac{1}{m_0} \sum_{i=1}^{m_0} (x_i - \mu_0)(x_i - \mu_0)^T \right) w \\
+&= w^T \Sigma_0 w
+\end{aligned}
+$$
+
+所以损失函数：
+
+$$
+\begin{aligned}
+max J &= \frac{\left \| w^T\mu_0 - w^T\mu_1 \right \|_2^2}{w^T\Sigma_0w + w^T\Sigma_1w} \\
+&= \frac{\left \| (w^T\mu_0 - w^T\mu_1)^T \right \|_2^2}{w^T(\Sigma_0 + \Sigma_1)w} \\
+&= \frac{\left \| (\mu_0 - \mu_1)^Tw \right \|_2^2}{w^T(\Sigma_0 + \Sigma_1)w} \\
+&= \frac{[(\mu_0 - \mu_1)^Tw]^T(\mu_0 - \mu_1)^Tw}{w^T(\Sigma_0 + \Sigma_1)w} \\
+&= \frac{w^T(\mu_0 - \mu_1)(\mu_0 - \mu_1)^Tw}{w^T(\Sigma_0 + \Sigma_1)w}
+\end{aligned}
+$$
+
+将 $(\mu_0 - \mu_1)(\mu_0 - \mu_1)^T$ 定义为 $S_b$，(\Sigma_0 + \Sigma_1) 定义为 $S_w$，式子可化为：
+
+$$
+max J = \frac{w^TS_bw}{w^TS_ww}
+$$
+
+分子分母都是关于 $w$ 的二次项，因此与 $w$ 长度无关，只与其方向有关。令 $w^TS_ww = 1$（固定分母），则等价：
+
+$$
+min \; w^TS_bw
+$$
+$$
+s.t. \; w^TS_ww = 1
+$$

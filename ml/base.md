@@ -152,3 +152,21 @@ $$
 | $f(x) = x^\top A x$         | $\frac{\partial f}{\partial x} = (A + A^\top)x$ | **一般情况**                |
 | $f(x) = x^\top A x$（$A$ 对称） | $\frac{\partial f}{\partial x} = 2Ax$           | **最常见**（如 $A=X^\top X$） |
 | $f(x) = a^\top x$           | $\frac{\partial f}{\partial x} = a$             | 线性项                     |
+
+
+### 拉格朗日乘法
+
+对于仅含等式约束的优化问题：
+
+$$
+min \; f(x) \\
+s.t. \; h_i(x) = 0 \; i = 1,2,3,\cdots,n
+$$
+
+其中自变量 $x \in \mathbb{R}^n$，$f(x)$ 和 $h_i(x)$ 均有连续的一阶偏导数，其拉格朗日函数：
+
+$$
+L(x, \lambda) = f(x) + \sum_{i=1}^n \lambda_i h_i(x)
+$$
+
+其中 $\lambda = (\lambda_1,\lambda_2,\cdots,\lambda_n)^T$ 为拉格朗日乘子。然后对拉格朗日函数关于 $x$ 求偏导，并令导数等于 $0$ 再搭配约束条件 $h_i(x) = 0$解出 $x$，求解出的所有 $x$ 即为上述优化问题的所有可能的极值点。
