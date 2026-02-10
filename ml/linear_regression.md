@@ -245,9 +245,145 @@ w(\sum_{i=1}^m x_i^2 -  \bar{x} \sum_{i=1}^m x_i) =
 \sum_{i=1}^m y_i x_i - \bar{y} \sum_{i=1}^m x_i
 $$
 
+
+利用：$\sum (x_i - \bar{x}) = 0$
+
+
+
 $$
-w = \frac{\sum_{i=1}^m y_i x_i - \bar{y} \sum_{i=1}^m x_i}{\sum_{i=1}^m x_i^2 -  \bar{x} \sum_{i=1}^m x_i}
+\begin{aligned}
+w &= \frac{\sum_{i=1}^m y_i x_i - \bar{y} \sum_{i=1}^m x_i}{\sum_{i=1}^m x_i^2 -  \bar{x} \sum_{i=1}^m x_i} \\
+&= \frac{\sum_{i=1}^m y_i (x_i - \bar{x})}{\sum_{i=1}^m (x_i^2 -  x_i\bar{x} )} \\
+&= \frac{\sum_{i=1}^m y_i (x_i - \bar{x}) - \sum_{i=1}^m \bar{y}(x_i - \bar{x})}{\sum_{i=1}^m x_i(x_i - \bar{x} ) - \sum_{i=1}^m \bar{x}(x_i - \bar{x}) } \\
+&= \frac{\sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^m (x_i - \bar{x})^2} 
+\end{aligned}
+$$
+
+转化为矩阵：若令 $x = (x_1;x_2;\cdots;x_m)$，$x_d = (x_1 - \bar{x};\cdots;x_m - \bar{x})$为去均值的 $x$，同理 $y$ 可以表示成 $y_d$，($m \times 1$ 的列向量) 代入上式：
+
+$$
+w = \frac{x_d^Ty_d}{x_d^Tx_d}
 $$
 
 
 ## 多元线性回归
+
+数据集 $D$，样本由 $d$ 个属性描述，此时：
+
+$$
+f(x_i) = w^Tx_i + b_i，使得 f(x_i) \simeq  y_i
+$$
+
+导出 $E_w$：
+
+$$
+f(x_i) = 
+\begin{pmatrix}
+w_1 & w_2 & \cdots & w_d & w_{d+1}
+\end{pmatrix}
+
+\begin{pmatrix}
+x_{i1} \\
+x_{i2} \\
+\vdots \\
+x_{id} \\
+1
+\end{pmatrix}
+$$
+
+$$
+f(\hat{x_i}) = \hat{w}^T\hat{x_i}
+$$
+
+由最小二乘法得：
+
+$$
+\begin{aligned}
+E_{\hat{w}} &= \sum_{i=1}^m (y_i - \hat{w}^T \hat{x_i})^2 \\
+&= (y_1 - \hat{w}^T \hat{x_1})^2 + \cdots + (y_m - \hat{w}^T \hat{x_m})^2 \\
+&= 
+\begin{pmatrix}
+y_1 - \hat{w}^T \hat{x_1} &
+\cdots &
+y_m - \hat{w}^T \hat{x_m}
+\end{pmatrix}
+
+\begin{pmatrix}
+y_1 - \hat{w}^T \hat{x_1} \\
+\vdots \\
+y_m - \hat{w}^T \hat{x_m}
+\end{pmatrix}
+\end{aligned}
+$$
+
+其中：
+
+$$
+\begin{pmatrix}
+y_1 - \hat{w}^T \hat{x_1} \\
+\vdots \\
+y_m - \hat{w}^T \hat{x_m}
+\end{pmatrix} = 
+
+\begin{pmatrix}
+y_1 \\
+\vdots \\
+y_m 
+\end{pmatrix} -
+
+\begin{pmatrix}
+\hat{w}^T \hat{x_1} \\
+\vdots \\
+\hat{w}^T \hat{x_m}
+\end{pmatrix} = 
+
+\begin{pmatrix}
+y_1 \\
+\vdots \\
+y_m 
+\end{pmatrix} -
+
+\begin{pmatrix}
+\hat{x_1}^T \hat{w} \\
+\vdots \\
+\hat{x_m}^T \hat{w} 
+\end{pmatrix}
+
+$$
+
+$$
+y = \begin{pmatrix}
+y_1 \\
+\vdots \\
+y_m 
+\end{pmatrix}, 
+
+\begin{pmatrix}
+\hat{x_1}^T \hat{w} \\
+\vdots \\
+\hat{x_m}^T \hat{w} 
+\end{pmatrix} = 
+
+\begin{pmatrix}
+\hat{x_1}^T \\
+\vdots \\
+\hat{x_m}^T
+\end{pmatrix} \cdot \hat{w} = 
+
+\begin{pmatrix}
+\hat{x_1}^T & 1 \\
+\vdots & \vdots \\  
+\hat{x_m}^T & 1
+\end{pmatrix} \cdot \hat{w} = X \cdot \hat{w}
+
+$$
+
+由上式可得：
+
+$$
+E_{\hat{w}} = (y - X\hat{w})^T(y - X\hat{w})
+$$
+
+求解的问题依然是一个多元函数求最值的问题：
+1. 证明 $E_{\hat{w}}$ 是关于 $\hat{w}$ 的凸函数。
+2. 用凸函数求最值的思路求解出 $\hat{w}$。
