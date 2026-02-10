@@ -387,3 +387,129 @@ $$
 求解的问题依然是一个多元函数求最值的问题：
 1. 证明 $E_{\hat{w}}$ 是关于 $\hat{w}$ 的凸函数。
 2. 用凸函数求最值的思路求解出 $\hat{w}$。
+
+证明1：
+
+$$
+\begin{aligned}
+E_{\hat{w}} &= (y - X\hat{w})^T(y - X\hat{w}) \\
+&= (y^T - \hat{w}^TX^T)(y - X\hat{w}) \\
+&= y^Ty - y^TX\hat{w}^T - \hat{w}^TX^Ty + w^TX^TX\hat{w} \\
+\end{aligned}
+$$
+
+由矩阵微分公式：$\frac{\partial a^Tx}{\partial x}$ = 
+$\frac{\partial xa^T}{\partial x} = a$  （标量相同），$\frac{\partial x^TAx}{\partial x} = (A+A^T)x$ （二次型求导）。 
+$$
+\frac{\partial E_{\hat{w}}}{\partial w} = 
+0 - X^Ty - X^Ty + (X^TX + X^TX) \hat{w} =
+2 X^T (X \hat{w} - y)
+$$
+
+$$
+\begin{aligned}
+\nabla^2 E_{\hat{w}} &= \frac{\partial}{\partial \hat{w}}(\frac{\partial E_{\hat{w}}}{\partial \hat{w}}) \\
+&= \frac{\partial}{\partial \hat{w}}[2 X^T (X \hat{w} - y)] \\
+&= 2 X^TX
+\end{aligned}
+$$
+
+
+假定 $X^TX$ 为正定矩阵，因此得证。
+
+求解2：
+
+$$
+\frac{\partial E_{\hat{w}}}{\partial w} = 2 X^T (X \hat{w} - y) = 0
+$$
+
+$$
+2X^TX\hat{w} - 2X^Ty = 0 \\
+2X^TX\hat{w} = 2X^Ty \\
+\hat{w} = (X^TX)^{-1}X^Ty
+$$
+
+
+## 对数几率回归
+
+在线性模型的基础上套一个映射函数来实现分类功能
+
+### 极大似然估计
+
+一：确定概率质量函数。
+
+已知 $y \in \{0,1\}$，则：
+
+$$
+\begin{aligned}
+p(y = 1 | x) &= \frac{1}{1 + e^{-(w^Tx+b)}} = \frac{e^{w^Tx+b}}{1 + e^{w^Tx+b}} \\
+p(y = 0 | x) &= 1 - p(y = 1 | x) = \frac{1}{1 + e^{w^Tx+b}}
+\end{aligned}
+$$
+
+令 $\beta = (w;b)$，$\hat{x} = (x;1)$，上式简写：
+$$
+\begin{aligned}
+p(y = 1 | \hat{x};\beta) &= \frac{e^{\beta^T\hat{x}}}{1 + e^{\beta^T\hat{x}}} = p_1(\hat{x};\beta) \\
+p(y = 0 | \hat{x};\beta) &= \frac{1}{1 + e^{\beta^T\hat{x}}} = p_0(\hat{x};\beta)
+\end{aligned}
+$$
+
+以上可以得出概率质量函数：
+
+$$
+p(y|\hat{x};\beta) = y \cdot p_1(\hat{x};\beta) + (1-y) \cdot p_0(\hat{x};\beta)
+$$
+
+或者为：
+
+$$
+p(y|\hat{x};\beta) = [p_1(\hat{x};\beta)]^y + [p_0(\hat{x};\beta)]^{1-y}
+$$
+
+二：写出似然函数
+
+$$
+L(\beta) = \prod_{i=1}^m p(y_i | \hat{x}; \beta)
+$$
+
+对数似然函数为：
+
+$$
+\ell(\beta) = lnL(\beta) = \sum_{i=1}^m p(y_i | \hat{x}; \beta) = \sum_{i=1}^m ln(y_ip_1(\hat{x};\beta) + (1-y_i)p_0(\hat{x};\beta))
+$$
+
+将 $p_1(\hat{x};\beta) = \frac{e^{\beta^T\hat{x}}}{1 + e^{\beta^T\hat{x}}}$ ，$p_0 = \frac{1}{1 + e^{\beta^T\hat{x}}} = p_0(\hat{x};\beta)$ 带入上式：
+
+$$
+\begin{aligned}
+\ell(\beta) &= \sum_{i=1}^m ln (\frac{y_i e^{\beta^T\hat{x}}}{1 + e^{\beta^T\hat{x}}} + \frac{1 - y_i}{1 + e^{\beta^T\hat{x}}}) \\
+&= \sum_{i=1}^m ln (\frac{y_i e^{\beta^T\hat{x}} + 1 - y_i}{1 + e^{\beta^T\hat{x}}}) \\
+&= \sum_{i=1}^m (ln(y_i e^{\beta^T\hat{x}} + 1 - y_i) - ln(1 + e^{\beta^T\hat{x}}))
+\end{aligned}
+$$
+
+由于 $y \in \{0, 1\}$：
+
+$y_i = 0$ 时：
+
+$$
+\ell(\beta) = \sum_{i=1}^m(-ln(1 + e^{\beta^T\hat{x}}))
+$$
+
+$y_i = 1$ 时：
+$$
+\ell(\beta) = \sum_{i=1}^m(\beta^T\hat{x}-ln(1 + e^{\beta^T\hat{x}}))
+$$
+
+综合：
+
+$$
+\ell(\beta) = \sum_{i=1}^m(y_i\beta^T\hat{x}-ln(1 + e^{\beta^T\hat{x}}))
+$$
+
+损失函数是最小化目标，因此将最大化 $\ell(\beta)$ 转化为最小化 $-\ell(\beta)$，即：
+
+$$
+\ell(\beta) = \sum_{i=1}^m(-y_i\beta^T\hat{x}+ln(1 + e^{\beta^T\hat{x}}))
+$$
