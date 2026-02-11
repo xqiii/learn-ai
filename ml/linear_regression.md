@@ -584,8 +584,46 @@ $$
 分子分母都是关于 $w$ 的二次项，因此与 $w$ 长度无关，只与其方向有关。令 $w^TS_ww = 1$（固定分母），则等价：
 
 $$
-min \; w^TS_bw
+min \; -w^TS_bw
 $$
 $$
 s.t. \; w^TS_ww = 1
 $$
+
+而 $ w^TS_ww - 1= 0$，可使用拉格朗日乘子法：
+
+$$
+L(w,\lambda) = -w^TS_bw + \lambda(w^TS_ww - 1)
+$$
+
+对 $w$ 求偏导：
+
+$$
+\frac{\partial L(w, \lambda)}{\partial w} = 
+-(S_b + S_b^T)w + \lambda(S_w + S_w^T)w
+$$
+
+由于 $S_b = S_b^T$，$S_w = S_w^T$，所以：
+
+$$
+\frac{\partial L(w, \lambda)}{\partial w} = 
+-2S_bw + 2\lambda S_w w
+$$
+
+令偏导数等于0，得：
+
+$$-2S_bw + 2\lambda S_w w = 0$$
+$$S_bw = \lambda S_ww$$
+$$(\mu_0 - \mu_1)(\mu_0 - \mu_1)^Tw = \lambda S_ww$$
+
+若令 $(\mu_0 - \mu_1)^Tw = \gamma$，则：
+
+$$
+\gamma (\mu_0 - \mu_1) = \lambda S_ww
+$$
+
+$$
+w = \frac{\gamma}{\lambda}S_w^{-1} (\mu_0 - \mu_1)
+$$
+
+最终求解的 $w$ 不关心其大小，只关心其方向，所以 $\frac{\gamma}{\lambda}$ 这个常数项可以任意取值，令 $\gamma = \lambda$，进而使得 $\frac{\gamma}{\lambda} = -1$，此时求解出的 $w = S_w^{-1} (\mu_0 - \mu_1)$
