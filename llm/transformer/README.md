@@ -136,3 +136,17 @@ $\alpha_i = \frac{\exp(s_i)}{\sum_j \exp(s_j)} \quad \Rightarrow \quad \sum_i \a
 
 ### 从矩阵的角度理解
 ![](../../image/llm/transformer/attention_matrix.png)
+
+### 多头注意力机制
+
+
+![](../../image/llm/transformer/mutil-head-attention.png)
+
+把输入序列投影为多组不同的Query，Key，Value，并行分别计算后，再把各组计算的结果合并作为最终的结果。
+
+
+### 填充掩码注意力机制
+
+![](../../image/llm/transformer/padding_attention.png)
+
+为了能够并行计算（利用 GPU 的矩阵运算加速），我们需要将所有句子补齐（Padding）到相同的长度（通常是批次中最长句子的长度）。
