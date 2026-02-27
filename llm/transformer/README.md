@@ -11,8 +11,19 @@ Transformer是一个基于自注意力机制的序列模型，由Google的研究
 Transformer都是数值运算，意味着文本输入进来需要转成数值，
 出去后需要从数值转成文本。会经过如下的过程： 
 1. 分词（Tokenization）
-2. 转换成ToeknID
+2. 转换成TokenID
 3. 词嵌入+位置编码
+
+### Tokenizer
+
+![](../../image/llm/transformer/tokenizer_1.png)
+
+Byte Pair Encoding Tokenizer(BPE)
+
+BPE的输入是一个语料库corpus，以英文举例包括很多的单词，初始的词表采用Character-based Tokenizer的词表。迭代地进行词频统计和词表合并两步，直到达到合并次数上限。
+
+- 词频统计：统计词中相邻token共同出现的词频
+- 词表合并：将最常出现的相邻token加入到词表中
 
 ### 独热编码
 
@@ -65,6 +76,10 @@ Transformer 的自注意力机制本身是完全不感知顺序的（permutation
     $PE_{(pos, 2i+1)} = \cos\left( pos / 10000^{2i / d_{model}} \right)$
 
     最终 PE 向量形状：[max_seq_len, d_model]
+
+    可以看到pos+k和pos之间的内积随着相对距离的增加而减小，符合文本中token之间一般距离越远关系越弱的原理。但是由于相对距离的对称性，三角位置编码无法区分方向，即pos+k与pos和pos-k与pos之间的距离使用一样的。
+
+    一个token的位置编码是什么由其在句子中的绝对位置决定，但是真正重要的往往不是绝对位置，而是它与其他token之间的关系。
 
 2. **Rotary Position Embedding 旋转位置嵌入** \
     对 Query 和 Key 向量做旋转变换
@@ -150,3 +165,43 @@ $\alpha_i = \frac{\exp(s_i)}{\sum_j \exp(s_j)} \quad \Rightarrow \quad \sum_i \a
 ![](../../image/llm/transformer/padding_attention.png)
 
 为了能够并行计算（利用 GPU 的矩阵运算加速），我们需要将所有句子补齐（Padding）到相同的长度（通常是批次中最长句子的长度）。
+
+
+## 层归一化
+
+对单个样本在特征维度上进行归一化。
+
+Post-LN
+
+LayerNorm 被放置在子层（如自注意力机制、前馈网络）之后，并与残差连接结合
+
+$ Output=LayerNorm(x+Sublayer(x))$
+
+Pre-LN
+
+为了解决训练不稳定问题，将 LayerNorm 移到了子层之前
+
+$Output=x+Sublayer(LayerNorm(x))$
+
+## 前馈神经网络
+
+两个简单的全连接层。
+
+$max(0, XW_1+b_1)W_2 + b_2$
+
+## 掩码矩阵
+
+解码过程中会把将之前预测的输出作为当前预测的输入，通过掩码矩阵可以防止第 i 个文本知道 i+1 个文本之后的信息。
+
+![](../../image/llm/transformer/mask_matrix_0.png)
+
+![](../../image/llm/transformer/mask_matrix_1.png)
+
+![](../../image/llm/transformer/mask_matrix_2.png)
+
+## 交叉注意力机制
+
+
+![](../../image/llm/transformer/cross_attention.png)
+
+K和V矩阵是由encoder的编码信息矩阵计算得到的，Q是由上一个decoder block计算得到的。
